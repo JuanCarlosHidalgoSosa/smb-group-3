@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://df00q74jhgta4"]
+
+[ext_resource type="SpriteFrames" uid="uid://d1emq3qdnue2i" path="res://blocks/question_block_frames_overworld.tres" id="2_72mot"]
+[ext_resource type="Script" path="res://blocks/question_block.gd" id="2_jpxdx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bs6b"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3o3j"]
+size = Vector2(8, 4)
+
+[node name="QuestionBlock" type="StaticBody2D"]
+script = ExtResource("2_jpxdx")
+item = 1
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_72mot")
+autoplay = "default"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_4bs6b")
+
+[node name="HitArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 6
+
+[node name="Shape" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_m3o3j")
+
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]

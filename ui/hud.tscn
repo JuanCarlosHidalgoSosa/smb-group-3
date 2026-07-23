@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://c2w3rwm0nwfxv"]
+
+[ext_resource type="FontFile" uid="uid://bkukv2ir5407k" path="res://assets/fonts/smb.ttf" id="1_qyf17"]
+[ext_resource type="Texture2D" uid="uid://dcooykk800xv0" path="res://assets/sprites/hud_coins.png" id="3_bnmj5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gb50"]
+bg_color = Color(0, 0, 0, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_667jh"]
+bg_color = Color(0, 0, 0, 0.25098)
+
+[sub_resource type="Theme" id="Theme_rn8m4"]
+default_font = ExtResource("1_qyf17")
+default_font_size = 8
+LineEdit/styles/focus = SubResource("StyleBoxFlat_1gb50")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_667jh")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxj6l"]
+atlas = ExtResource("3_bnmj5")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31oax"]
+atlas = ExtResource("3_bnmj5")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfqwo"]
+atlas = ExtResource("3_bnmj5")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gv66n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxj6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxj6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31oax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfqwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxj6l")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HUD" type="CanvasLayer" unique_id=1898607902]
+
+[node name="Control" type="Control" parent="." unique_id=1605689762]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+theme = SubResource("Theme_rn8m4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=267879938]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 21.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Score" type="Label" parent="Control/HBoxContainer" unique_id=200586093]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Mario
+000000"
+
+[node name="Coins" type="Label" parent="Control/HBoxContainer" unique_id=323829892]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "
+  ×00"
+
+[node name="Icon" type="AnimatedSprite2D" parent="Control/HBoxContainer/Coins" unique_id=1317422752]
+position = Vector2(12, 16)
+sprite_frames = SubResource("SpriteFrames_gv66n")
+autoplay = "default"
+
+[node name="World" type="Label" parent="Control/HBoxContainer" unique_id=1381711802]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "World
+1-1"
+horizontal_alignment = 1
+
+[node name="Timer" type="Label" parent="Control/HBoxContainer" unique_id=924012209]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+text = "Time
+ 300"
+horizontal_alignment = 2
