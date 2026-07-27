@@ -2,28 +2,37 @@ extends CanvasLayer
 
 signal time_up
 
-@export var tiempo_inicial: int = 300
-@export var velocidad: float = 0.4 # Cada 0.4 s baja 1 unidad
+@export var initial_time: int = 300
+@export var speed: float = 0.4 # Every 0.4s it goes down 1 unit
 
-var tiempo: int
+var time: int
 
 @onready var timer = $Timer
 @onready var timer_label = $Control/HBoxContainer/timer_label
+@onready var score_label: Label = $Control/HBoxContainer/Score
+
+var _player_name: String = ""
 
 func _ready():
-	tiempo = tiempo_inicial
-	timer.wait_time = velocidad
-	actualizar_tiempo()
+	time = initial_time
+	timer.wait_time = speed
+	update_time()
 	timer.start()
 
+	_player_name = score_label.text.split("\n")[0]
+	ScoreManager.score_changed.connect(_on_score_changed)
+	_on_score_changed(ScoreManager.score)
+
 func _on_timer_timeout():
-	if tiempo > 0:
-		tiempo -= 1
-		actualizar_tiempo()
+	if time > 0:
+		time -= 1
+		update_time()
 	else:
 		timer.stop()
 		emit_signal("time_up")
 
-func actualizar_tiempo():
-	timer_label.text = "TIME
-	%03d" % tiempo
+func update_time():
+	timer_label.text = "TIME\n%03d" % time
+
+func _on_score_changed(score: int):
+	score_label.text = "%s\n%06d" % [_player_name, score]
