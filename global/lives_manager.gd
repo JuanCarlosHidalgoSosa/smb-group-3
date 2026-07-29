@@ -16,6 +16,7 @@ func remove_life(amount: int = 1) -> void:
 	lives_changed.emit(lives)
 	if lives <= 0:
 		game_over.emit()
+		get_tree().change_scene_to_file("res://global/game_over.tscn")
 
 func get_lives() -> int:
 	return lives
