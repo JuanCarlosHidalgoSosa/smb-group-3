@@ -33,6 +33,7 @@ const STOMP_SPEED = 240.0
 const STOMP_SPEED_CAP = -60.0
 
 const COOLDOWN_TIME_SEC = 3.0
+const DEATH_HEIGHT = 1000.0
 
 # Nodes
 @onready var camera = get_node_or_null("Camera")
@@ -110,6 +111,10 @@ func _physics_process(delta):
 
 	move_and_slide()
 	handle_last_collision()
+	
+	if global_position.y > DEATH_HEIGHT:
+		die()
+	
 
 func process_input():
 	input_axis.x = Input.get_axis("move_left", "move_right")
@@ -340,3 +345,6 @@ func _on_hitbox_body_entered(body: Node):
 
 func _on_animation_player_animation_finished(_anim_name):
 	Physics.enable()
+
+func die():
+	get_tree().reload_current_scene()
