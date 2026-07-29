@@ -4,7 +4,7 @@ const GRAVITY = 1300.0
 const MAX_FALL_SPEED = 270.0
 const JUMP_SPEED = -240.0
 
-@onready var _level = $"../Main/Stage"
+
 
 
 func _process(_delta):
@@ -15,13 +15,15 @@ func _process(_delta):
 		Engine.physics_ticks_per_second = round(refresh_rate)
 
 
+func _get_level() -> Node:
+	return get_tree().current_scene.get_node("Stage")
+
 func disable():
-	_toggle_children_physics(_level, false)
+	_toggle_children_physics(_get_level(), false)
 	GameLog.append("Physics disabled")
 
-
 func enable():
-	_toggle_children_physics(_level, true)
+	_toggle_children_physics(_get_level(), true)
 	GameLog.append("Physics enabled")
 
 

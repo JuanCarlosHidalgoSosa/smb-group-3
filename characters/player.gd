@@ -290,11 +290,31 @@ func transform(to_state: State):
 
 func take_hit():
 	if state == State.SMALL:
-		# TODO: handle death
-		pass
+		die_by_hit()
 	else:
 		transform(state - 1)
 		_cooldown()
+
+func die_by_hit():
+	set_physics_process(false)
+	set_process(false)
+	Physics.disable()
+	
+	# TODO: reemplazar por animación "death" cuando esté disponible
+	sprite.play("jump")
+	
+	velocity = Vector2(0, -240.0)
+	var tween = create_tween()
+	tween.tween_property(self, "position:y", position.y + 400.0, 1.2)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	await tween.finished
+	
+	LivesManager.remove_life()
+	
+	if LivesManager.get_lives() > 0:
+		get_tree().reload_current_scene()
+	else:
+		pass # LivesManager ya emite "game_over"; lo maneja la tarjeta 007
 
 func _cooldown():
 	has_cooldown = true
