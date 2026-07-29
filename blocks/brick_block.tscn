@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c30a23epjbrps"]
+[gd_scene format=3 uid="uid://c30a23epjbrps"]
 
 [ext_resource type="PackedScene" uid="uid://df00q74jhgta4" path="res://blocks/question_block.tscn" id="1_so4en"]
-[ext_resource type="Script" path="res://blocks/brick_block.gd" id="2_ebyhf"]
+[ext_resource type="Script" uid="uid://bp5bfimbe11a0" path="res://blocks/brick_block.gd" id="2_ebyhf"]
 [ext_resource type="SpriteFrames" uid="uid://bkvcs5unv85gd" path="res://blocks/brick_block_frames_overworld.tres" id="3_07o77"]
 
-[node name="BrickBlock" instance=ExtResource("1_so4en")]
+[node name="BrickBlock" unique_id=1006241042 instance=ExtResource("1_so4en")]
 script = ExtResource("2_ebyhf")
 item = 0
 
