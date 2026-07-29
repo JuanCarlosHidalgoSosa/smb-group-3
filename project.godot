@@ -26,6 +26,7 @@ Physics="*res://global/physics.gd"
 GameLog="*res://global/game_log.gd"
 ScoreManager="*res://global/score_manager.gd"
 CoindManager="*uid://brq4pnaj57u60"
+LivesManager="*uid://lcrj3xw2lrv"
 
 [display]
 
