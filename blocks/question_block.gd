@@ -61,12 +61,16 @@ func on_hit(body: Node):
 
 	match item:
 		Item.SINGLE_COIN:
+			ScoreManager.add_coin()
+			ScoreManager.add_points(100)
 			_item_instance = coin_particle_scene.instantiate()
+
 		Item.RED_MUSHROOM_OR_FIRE_FLOWER:
 			if body is Player and body.state != Player.State.SMALL:
-				_item_instance = red_mushroom_scene.instantiate()  # TODO: fire flower
+				_item_instance = red_mushroom_scene.instantiate() # TODO: fire flower
 			else:
 				_item_instance = red_mushroom_scene.instantiate()
+
 		_:
 			_item_instance = null
 
