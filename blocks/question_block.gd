@@ -17,6 +17,8 @@ const coin_particle_scene = preload("res://particles/coin_particle.tscn")
 const red_mushroom_scene = preload("res://items/red_mushroom.tscn")
 
 @export var item: Item = Item.NONE
+@export var multi_coin_window_sec: float = 5.0
+@export var multi_coin_max: int = 10
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var hit_area: Area2D = $HitArea
@@ -24,7 +26,8 @@ const red_mushroom_scene = preload("res://items/red_mushroom.tscn")
 var _hit: bool = false
 var _is_empty: bool = false
 var _velocity: float = 0
-var _item_instance: Node = null
+var _multi_coin_left: int = 0
+var _multi_coin_time_left: float = 0.0
 
 
 func _ready():
@@ -33,6 +36,8 @@ func _ready():
 
 
 func _physics_process(delta):
+	_process_multi_coin_window(delta)
+
 	if not _hit:
 		sprite.offset = Vector2.ZERO
 		return
@@ -61,30 +66,63 @@ func on_hit(body: Node):
 
 	match item:
 		Item.SINGLE_COIN:
-			ScoreManager.add_coin()
-			ScoreManager.add_points(ScoreTable.value_of(ScoreTable.Award.COIN))
-			_item_instance = coin_particle_scene.instantiate()
+			_give_coin()
+			_become_empty()
+
+		Item.MULTI_COIN:
+			_give_coin()
+			_spend_multi_coin()
 
 		Item.RED_MUSHROOM_OR_FIRE_FLOWER:
 			if body is Player and body.state != Player.State.SMALL:
-				_item_instance = red_mushroom_scene.instantiate() # TODO: fire flower
+				_spawn(red_mushroom_scene.instantiate()) # TODO: fire flower
 			else:
-				_item_instance = red_mushroom_scene.instantiate()
+				_spawn(red_mushroom_scene.instantiate())
 
-		_:
-			_item_instance = null
+			_become_empty()
 
-	if _item_instance:
-		item = Item.NONE
-		_is_empty = true
-		sprite.play("empty")
 
-		_item_instance.position = position + Vector2.UP * 16
-		if "spawner" in _item_instance:
-			_item_instance.spawner = self
+func _give_coin():
+	ScoreManager.add_coin()
+	ScoreManager.add_points(ScoreTable.value_of(ScoreTable.Award.COIN))
+	_spawn(coin_particle_scene.instantiate())
 
-		add_sibling(_item_instance)
-		_item_instance = null
+
+func _spend_multi_coin():
+	if _multi_coin_left <= 0:
+		_multi_coin_left = multi_coin_max
+		_multi_coin_time_left = multi_coin_window_sec
+
+	_multi_coin_left -= 1
+
+	if _multi_coin_left <= 0:
+		_become_empty()
+
+
+func _process_multi_coin_window(delta: float):
+	if _multi_coin_time_left <= 0.0:
+		return
+
+	_multi_coin_time_left -= delta
+
+	if _multi_coin_time_left <= 0.0:
+		_become_empty()
+
+
+func _spawn(instance: Node):
+	instance.position = position + Vector2.UP * 16
+
+	if "spawner" in instance:
+		instance.spawner = self
+
+	add_sibling(instance)
+
+
+func _become_empty():
+	item = Item.NONE
+	_is_empty = true
+	_multi_coin_time_left = 0.0
+	sprite.play("empty")
 
 
 func _on_hit_finished():

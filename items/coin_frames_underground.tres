@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/coin.png" id="1_und"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_und0"]
+atlas = ExtResource("1_und")
+region = Rect2(0, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_und1"]
+atlas = ExtResource("1_und")
+region = Rect2(17, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_und2"]
+atlas = ExtResource("1_und")
+region = Rect2(34, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_und3"]
+atlas = ExtResource("1_und")
+region = Rect2(51, 17, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_und0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_und1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_und2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_und3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

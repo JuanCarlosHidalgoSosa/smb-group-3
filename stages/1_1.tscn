@@ -141,11 +141,11 @@ item = 3
 
 [node name="QuestionBlock7" parent="." unique_id=1497106249 instance=ExtResource("1_o10pm")]
 position = Vector2(1512, 88)
-item = 0
+item = 1
 
 [node name="QuestionBlock8" parent="." unique_id=364561015 instance=ExtResource("1_o10pm")]
 position = Vector2(1704, 152)
-item = 0
+item = 1
 
 [node name="QuestionBlock9" parent="." unique_id=782040140 instance=ExtResource("1_o10pm")]
 position = Vector2(1752, 88)
@@ -153,23 +153,23 @@ item = 3
 
 [node name="QuestionBlock10" parent="." unique_id=734057319 instance=ExtResource("1_o10pm")]
 position = Vector2(1752, 152)
-item = 0
+item = 1
 
 [node name="QuestionBlock11" parent="." unique_id=1533542497 instance=ExtResource("1_o10pm")]
 position = Vector2(1800, 152)
-item = 0
+item = 1
 
 [node name="QuestionBlock12" parent="." unique_id=1750271864 instance=ExtResource("1_o10pm")]
 position = Vector2(2071, 88)
-item = 0
+item = 1
 
 [node name="QuestionBlock13" parent="." unique_id=1456722633 instance=ExtResource("1_o10pm")]
 position = Vector2(2087, 88)
-item = 0
+item = 1
 
 [node name="QuestionBlock14" parent="." unique_id=2022218657 instance=ExtResource("1_o10pm")]
 position = Vector2(2728, 152)
-item = 0
+item = 1
 
 [node name="Goomba" parent="." unique_id=653802462 instance=ExtResource("4_38siv")]
 position = Vector2(360, 200)
