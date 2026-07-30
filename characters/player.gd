@@ -406,7 +406,7 @@ func reset_chain():
 
 func _chain_points(entity: Node2D) -> int:
 	if chain_link == 0:
-		return _points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "stomp_points")
+		return _points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "points")
 
 	return ScoreTable.chain_value(chain_link)
 
