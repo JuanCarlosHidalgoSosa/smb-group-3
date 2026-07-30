@@ -71,9 +71,11 @@ var state = State.SMALL:
 					transition_sprite.animation = "shrink"
 				State.BIG:
 					transition_sprite.animation = "grow"
-			
+				State.FIRE:
+					transition_sprite.animation = "fire"
+
 			transition_sprite.flip_h = sprite.flip_h
-			animation_player.play("transition")
+			animation_player.play("transition_fire" if state == State.FIRE else "transition")
 			
 			Physics.disable()
 
@@ -88,6 +90,7 @@ var collected_item_ref: Node = null
 
 @onready var small_sprite: AnimatedSprite2D = $SmallSprite
 @onready var big_sprite: AnimatedSprite2D = $BigSprite
+@onready var fire_sprite: AnimatedSprite2D = $FireSprite
 @onready var transition_sprite: AnimatedSprite2D = $TransitionSprite
 
 @onready var hitbox: Area2D = $Hitbox
@@ -277,13 +280,20 @@ func process_animation():
 		modulate.a = 1.0
 
 func _update_tree():
-	var is_small = not state
+	var is_small = state == State.SMALL
 	var is_crouching_or_small = is_crouching or is_small
 
-	sprite = small_sprite if is_small else big_sprite
+	match state:
+		State.SMALL:
+			sprite = small_sprite
+		State.FIRE:
+			sprite = fire_sprite
+		_:
+			sprite = big_sprite
 
-	small_sprite.visible = is_small	
-	big_sprite.visible = not is_small
+	small_sprite.visible = sprite == small_sprite
+	big_sprite.visible = sprite == big_sprite
+	fire_sprite.visible = sprite == fire_sprite
 
 	big_collision_shape.disabled = is_crouching_or_small
 	big_hitbox_shape.disabled = is_crouching_or_small
@@ -299,7 +309,7 @@ func take_hit():
 	if state == State.SMALL:
 		die_by_hit()
 	else:
-		transform(state - 1)
+		transform(State.SMALL)
 		_cooldown()
 
 func die_by_hit():
@@ -390,8 +400,8 @@ func _on_hitbox_body_entered(body: Node):
 	var previous_state = state
 	collected_item_ref = body
 
-	if body is RedMushroom:
-		transform(State.BIG)
+	if body.has_method("apply_to"):
+		body.apply_to(self)
 
 	if state == previous_state:
 		collected_item_ref = null

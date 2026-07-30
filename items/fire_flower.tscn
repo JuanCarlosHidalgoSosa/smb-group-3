@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://items/fire_flower.gd" id="1_flwr1"]
+[ext_resource type="SpriteFrames" path="res://items/fire_flower_frames.tres" id="2_flwr2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flwr"]
+size = Vector2(16, 16)
+
+[node name="FireFlower" type="CharacterBody2D" groups=["powerups"]]
+collision_layer = 4
+script = ExtResource("1_flwr1")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 5
+sprite_frames = ExtResource("2_flwr2")
+autoplay = "default"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_flwr")
