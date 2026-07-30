@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c30a23epjbrps" path="res://blocks/brick_block.tscn" id="7_0l3fy"]
 [ext_resource type="PackedScene" uid="uid://cbbuditkrn656" path="res://characters/player.tscn" id="8_tkm5h"]
 [ext_resource type="PackedScene" uid="uid://bk00pa1tr00pa" path="res://enemies/koopa.tscn" id="9_koopa"]
+[ext_resource type="PackedScene" uid="uid://cp1ranhap1ant" path="res://enemies/piranha_plant.tscn" id="10_piranha"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pb777"]
 
@@ -236,3 +237,18 @@ drag_bottom_margin = 0.6
 
 [node name="Koopa" parent="." instance=ExtResource("9_koopa")]
 position = Vector2(1300, 200)
+
+[node name="PiranhaPlant" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(464, 176)
+
+[node name="PiranhaPlant2" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(624, 160)
+
+[node name="PiranhaPlant3" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(752, 144)
+
+[node name="PiranhaPlant5" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(2624, 176)
+
+[node name="PiranhaPlant6" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(2880, 176)
