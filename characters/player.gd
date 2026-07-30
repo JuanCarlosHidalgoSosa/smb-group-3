@@ -35,6 +35,8 @@ const STOMP_SPEED_CAP = -60.0
 const COOLDOWN_TIME_SEC = 3.0
 const DEATH_HEIGHT = 1000.0
 
+const SCORE_POPUP_OFFSET = Vector2.UP * 8.0
+
 # Nodes
 @onready var camera = get_node_or_null("Camera")
 
@@ -352,16 +354,38 @@ func _on_hitbox_area_entered(area: Area2D):
 		if stomp:
 			if body.has_method("stomp"):
 				body.stomp()
+				ScoreManager.award_points(
+					_points_of(body, ScoreTable.Award.GOOMBA_STOMP, "stomp_points"),
+					body.global_position + SCORE_POPUP_OFFSET
+				)
 				velocity.y = fmod(velocity.y, STOMP_SPEED_CAP) - STOMP_SPEED
 		elif not has_cooldown:
 			take_hit()
 
 func _on_hitbox_body_entered(body: Node):
-	if body.is_in_group("powerups"):
-		collected_item_ref = body
-		
-		if body is RedMushroom:
-			transform(State.BIG)
+	if not body.is_in_group("powerups") or body == collected_item_ref:
+		return
+
+	ScoreManager.award_points(
+		_points_of(body, ScoreTable.Award.POWERUP, "points"),
+		body.global_position + SCORE_POPUP_OFFSET
+	)
+
+	var previous_state = state
+	collected_item_ref = body
+
+	if body is RedMushroom:
+		transform(State.BIG)
+
+	if state == previous_state:
+		collected_item_ref = null
+		body.queue_free()
+
+func _points_of(entity: Node, award: ScoreTable.Award, property: String) -> int:
+	if property in entity:
+		return entity.get(property)
+
+	return ScoreTable.value_of(award)
 
 func _on_animation_player_animation_finished(_anim_name):
 	Physics.enable()

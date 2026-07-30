@@ -62,7 +62,7 @@ func on_hit(body: Node):
 	match item:
 		Item.SINGLE_COIN:
 			ScoreManager.add_coin()
-			ScoreManager.add_points(100)
+			ScoreManager.add_points(ScoreTable.value_of(ScoreTable.Award.COIN))
 			_item_instance = coin_particle_scene.instantiate()
 
 		Item.RED_MUSHROOM_OR_FIRE_FLOWER:

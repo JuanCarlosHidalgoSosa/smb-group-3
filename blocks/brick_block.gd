@@ -20,6 +20,8 @@ func on_hit(body: Node):
 		if body is Player and body.state == Player.State.SMALL:
 			return
 
+		ScoreManager.add_points(ScoreTable.value_of(ScoreTable.Award.BRICK_BLOCK_BROKEN))
+
 		_spawn_debris()
 		queue_free()
 

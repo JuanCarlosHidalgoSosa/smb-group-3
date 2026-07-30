@@ -7,6 +7,7 @@ const DESPAWN_TIME_SEC: float = 1.0
 @onready var sprite: AnimatedSprite2D = $Sprite
 
 @export var is_facing_left: bool = true
+@export var stomp_points: int = ScoreTable.value_of(ScoreTable.Award.GOOMBA_STOMP)
 
 var is_alive: bool = true
 
