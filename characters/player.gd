@@ -79,7 +79,7 @@ var state = State.SMALL:
 
 var has_cooldown = false
 
-var chain_link: int = 0
+var chain: ScoreChain = ScoreChain.new()
 
 var collected_item_ref: Node = null
 
@@ -355,24 +355,37 @@ func _on_hitbox_area_entered(area: Area2D):
 		if not body.is_alive:
 			return
 
-		var stomp = velocity.y > 0 and hitbox.global_position.y < area.global_position.y
+		var is_stompable = body.has_method("stomp")
+		var stomp = is_stompable and velocity.y > 0 and hitbox.global_position.y < area.global_position.y
 
 		if stomp:
-			if body.has_method("stomp"):
-				body.stomp()
+			if body.stomp():
 				award_chain_link(body)
-				velocity.y = fmod(velocity.y, STOMP_SPEED_CAP) - STOMP_SPEED
-		elif not has_cooldown:
-			take_hit()
+
+			velocity.y = fmod(velocity.y, STOMP_SPEED_CAP) - STOMP_SPEED
+		else:
+			var kicked = false
+
+			if body.has_method("kick"):
+				kicked = body.kick(signf(body.global_position.x - global_position.x))
+
+			if not kicked and not has_cooldown:
+				take_hit()
 
 func _on_hitbox_body_entered(body: Node):
-	if not body.is_in_group("powerups") or body == collected_item_ref:
+	if not body.is_in_group("powerups") or body == collected_item_ref or body.is_queued_for_deletion():
 		return
 
-	ScoreManager.award_points(
-		_points_of(body, ScoreTable.Award.POWERUP, "points"),
-		body.global_position + SCORE_POPUP_OFFSET
-	)
+	var popup_position = body.global_position + SCORE_POPUP_OFFSET
+	var points = _points_of(body, ScoreTable.Award.POWERUP, "points")
+	var extra_lives = body.extra_lives if "extra_lives" in body else 0
+
+	if points > 0:
+		ScoreManager.award_points(points, popup_position)
+
+	if extra_lives > 0:
+		LivesManager.add_life(extra_lives)
+		ScoreManager.show_floating_text(ScoreTable.ONE_UP_TEXT, popup_position)
 
 	var previous_state = state
 	collected_item_ref = body
@@ -385,24 +398,13 @@ func _on_hitbox_body_entered(body: Node):
 		body.queue_free()
 
 func award_chain_link(entity: Node2D):
-	var popup_position = entity.global_position + SCORE_POPUP_OFFSET
-
-	if ScoreTable.chain_gives_one_up(chain_link):
-		LivesManager.add_life()
-		ScoreManager.show_floating_text(ScoreTable.ONE_UP_TEXT, popup_position)
-	else:
-		ScoreManager.award_points(_chain_points(entity), popup_position)
-
-	chain_link += 1
+	chain.award(
+		_points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "points"),
+		entity.global_position + SCORE_POPUP_OFFSET
+	)
 
 func reset_chain():
-	chain_link = 0
-
-func _chain_points(entity: Node2D) -> int:
-	if chain_link == 0:
-		return _points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "stomp_points")
-
-	return ScoreTable.chain_value(chain_link)
+	chain.reset()
 
 func _points_of(entity: Node, award: ScoreTable.Award, property: String) -> int:
 	if property in entity:

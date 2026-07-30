@@ -3,6 +3,11 @@ extends RefCounted
 
 enum Award {
 	GOOMBA_STOMP,
+	KOOPA_STOMP,
+	BUZZY_BEETLE,
+	BULLET_BILL,
+	HAMMER_BRO,
+	PIRANHA_PLANT,
 	BRICK_BLOCK_BROKEN,
 	POWERUP,
 	COIN,
@@ -10,6 +15,11 @@ enum Award {
 
 const VALUES: Dictionary = {
 	Award.GOOMBA_STOMP: 100,
+	Award.KOOPA_STOMP: 100,
+	Award.BUZZY_BEETLE: 100,
+	Award.BULLET_BILL: 200,
+	Award.HAMMER_BRO: 1000,
+	Award.PIRANHA_PLANT: 200,
 	Award.BRICK_BLOCK_BROKEN: 50,
 	Award.POWERUP: 1000,
 	Award.COIN: 200,

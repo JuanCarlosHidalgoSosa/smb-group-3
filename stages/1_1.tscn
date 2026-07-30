@@ -8,6 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://c30a23epjbrps" path="res://blocks/brick_block.tscn" id="7_0l3fy"]
 [ext_resource type="PackedScene" uid="uid://bq1v7xmodmto0" path="res://stages/flagpole.tscn" id="8_8t2t5"]
 [ext_resource type="PackedScene" uid="uid://cbbuditkrn656" path="res://characters/player.tscn" id="8_tkm5h"]
+[ext_resource type="PackedScene" uid="uid://bk00pa1tr00pa" path="res://enemies/koopa.tscn" id="9_koopa"]
+[ext_resource type="PackedScene" uid="uid://cp1ranhap1ant" path="res://enemies/piranha_plant.tscn" id="10_piranha"]
+[ext_resource type="PackedScene" uid="uid://bbuzzybeet1e0" path="res://enemies/buzzy_beetle.tscn" id="12_buzzy"]
+[ext_resource type="PackedScene" uid="uid://db111b1aster0" path="res://enemies/bill_blaster.tscn" id="13_blaster"]
+[ext_resource type="PackedScene" uid="uid://dhammerbr00001" path="res://enemies/hammer_bro.tscn" id="14_hbro"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pb777"]
 
@@ -142,11 +147,11 @@ item = 3
 
 [node name="QuestionBlock7" parent="." unique_id=1497106249 instance=ExtResource("1_o10pm")]
 position = Vector2(1512, 88)
-item = 0
+item = 1
 
 [node name="QuestionBlock8" parent="." unique_id=364561015 instance=ExtResource("1_o10pm")]
 position = Vector2(1704, 152)
-item = 0
+item = 1
 
 [node name="QuestionBlock9" parent="." unique_id=782040140 instance=ExtResource("1_o10pm")]
 position = Vector2(1752, 88)
@@ -154,23 +159,23 @@ item = 3
 
 [node name="QuestionBlock10" parent="." unique_id=734057319 instance=ExtResource("1_o10pm")]
 position = Vector2(1752, 152)
-item = 0
+item = 1
 
 [node name="QuestionBlock11" parent="." unique_id=1533542497 instance=ExtResource("1_o10pm")]
 position = Vector2(1800, 152)
-item = 0
+item = 1
 
 [node name="QuestionBlock12" parent="." unique_id=1750271864 instance=ExtResource("1_o10pm")]
 position = Vector2(2071, 88)
-item = 0
+item = 1
 
 [node name="QuestionBlock13" parent="." unique_id=1456722633 instance=ExtResource("1_o10pm")]
 position = Vector2(2087, 88)
-item = 0
+item = 1
 
 [node name="QuestionBlock14" parent="." unique_id=2022218657 instance=ExtResource("1_o10pm")]
 position = Vector2(2728, 152)
-item = 0
+item = 1
 
 [node name="Goomba" parent="." unique_id=653802462 instance=ExtResource("4_38siv")]
 position = Vector2(360, 200)
@@ -234,6 +239,7 @@ drag_top_margin = 0.6
 drag_right_margin = 0.0
 drag_bottom_margin = 0.6
 
+
 [node name="Flagpole" parent="." unique_id=1565535188 instance=ExtResource("8_8t2t5")]
 position = Vector2(3175, 123)
 scale = Vector2(0.4, 0.4)
@@ -242,3 +248,39 @@ collision_mask = 8
 
 [node name="CastleEntrance" type="Marker2D" parent="." unique_id=545072240]
 position = Vector2(3272, 200)
+
+[node name="Koopa" parent="." instance=ExtResource("9_koopa")]
+position = Vector2(1300, 200)
+
+[node name="PiranhaPlant" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(464, 176)
+
+[node name="PiranhaPlant2" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(624, 160)
+
+[node name="PiranhaPlant3" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(752, 144)
+
+[node name="PiranhaPlant5" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(2624, 176)
+
+[node name="PiranhaPlant6" parent="." instance=ExtResource("10_piranha")]
+position = Vector2(2880, 176)
+
+[node name="BuzzyBeetle" parent="." instance=ExtResource("12_buzzy")]
+position = Vector2(160, 200)
+
+[node name="BuzzyBeetle2" parent="." instance=ExtResource("12_buzzy")]
+position = Vector2(1210, 200)
+
+[node name="HammerBro" parent="." instance=ExtResource("14_hbro")]
+position = Vector2(590, 200)
+
+[node name="HammerBro2" parent="." instance=ExtResource("14_hbro")]
+position = Vector2(1360, 200)
+
+[node name="BillBlaster" parent="." instance=ExtResource("13_blaster")]
+position = Vector2(320, 200)
+
+[node name="BillBlaster2" parent="." instance=ExtResource("13_blaster")]
+position = Vector2(2740, 200)

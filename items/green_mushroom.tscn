@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dg2yn1s7h0m1e"]
+
+[ext_resource type="Script" path="res://items/green_mushroom.gd" id="1_gm1up"]
+[ext_resource type="Texture2D" path="res://assets/sprites/green_mushroom.png" id="2_gm1up"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gm1up"]
+size = Vector2(16, 14)
+
+[node name="GreenMushroom" type="CharacterBody2D" groups=["powerups"]]
+collision_layer = 4
+script = ExtResource("1_gm1up")
+points = 0
+extra_lives = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 5
+texture = ExtResource("2_gm1up")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_gm1up")

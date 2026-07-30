@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bklmv7uquajbm"]
 
-[ext_resource type="Script" uid="uid://dl0xxme63jsa" path="res://global/game_over.gd" id="1_ut8pd"]
+[ext_resource type="Script" uid="uid://cxgesepveente" path="res://global/game_over.gd" id="1_ut8pd"]
 [ext_resource type="FontFile" uid="uid://bkukv2ir5407k" path="res://assets/fonts/smb.ttf" id="2_q26rp"]
 
 [node name="game_over" type="Node2D" unique_id=891155206]

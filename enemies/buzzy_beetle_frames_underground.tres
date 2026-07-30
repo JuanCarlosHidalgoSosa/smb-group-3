@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/buzzy_beetle.png" id="1_bz"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bz0"]
+atlas = ExtResource("1_bz")
+region = Rect2(0, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bz1"]
+atlas = ExtResource("1_bz")
+region = Rect2(17, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bz2"]
+atlas = ExtResource("1_bz")
+region = Rect2(34, 17, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bz2")
+}],
+"loop": true,
+"name": &"shell",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bz2")
+}],
+"loop": true,
+"name": &"shell_wake",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bz0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bz1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]

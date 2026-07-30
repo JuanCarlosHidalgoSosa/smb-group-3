@@ -4,6 +4,7 @@ signal score_changed(score: int)
 signal coins_changed(coins: int)
 
 const FLOATING_SCORE_SCENE = preload("res://ui/floating_score.tscn")
+const COINS_PER_LIFE: int = 100
 
 var score: int = 0
 var coins: int = 0
@@ -28,8 +29,19 @@ func show_floating_text(text: String, world_position: Vector2) -> void:
 	stage.add_child(floating_score)
 	floating_score.global_position = world_position.round()
 
+func reset() -> void:
+	score = 0
+	coins = 0
+	score_changed.emit(score)
+	coins_changed.emit(coins)
+
 func add_coin() -> void:
 	coins += 1
+
+	if coins >= COINS_PER_LIFE:
+		coins -= COINS_PER_LIFE
+		LivesManager.add_life()
+
 	coins_changed.emit(coins)
 
 func _get_stage() -> Node:

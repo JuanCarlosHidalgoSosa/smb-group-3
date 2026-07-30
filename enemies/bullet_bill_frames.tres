@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/bullet_bill.png" id="1_bb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bb0"]
+atlas = ExtResource("1_bb")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bb0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
