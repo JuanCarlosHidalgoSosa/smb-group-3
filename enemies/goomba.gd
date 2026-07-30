@@ -45,17 +45,19 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func stomp():
+func stomp() -> bool:
 	if not is_alive:
-		return
+		return false
 
 	sprite.play("stomp")
 	is_alive = false
 
 	get_tree().create_timer(DESPAWN_TIME_SEC).connect("timeout", queue_free)
 
+	return true
 
-func die_from_hit(_hit_direction: Vector2 = Vector2.ZERO):
+
+func die_from_hit(_hit_direction: Vector2 = Vector2.ZERO, awards_points: bool = true):
 	if not is_alive:
 		return
 
@@ -69,7 +71,8 @@ func die_from_hit(_hit_direction: Vector2 = Vector2.ZERO):
 	sprite.flip_v = true
 	velocity.y = KNOCKOUT_SPEED
 
-	ScoreManager.award_points(points, global_position + Vector2.UP * 8)
+	if awards_points:
+		ScoreManager.award_points(points, global_position + Vector2.UP * 8)
 
 
 func hit(body: Node2D):

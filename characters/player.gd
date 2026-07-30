@@ -79,7 +79,7 @@ var state = State.SMALL:
 
 var has_cooldown = false
 
-var chain_link: int = 0
+var chain: ScoreChain = ScoreChain.new()
 
 var collected_item_ref: Node = null
 
@@ -359,11 +359,18 @@ func _on_hitbox_area_entered(area: Area2D):
 
 		if stomp:
 			if body.has_method("stomp"):
-				body.stomp()
-				award_chain_link(body)
+				if body.stomp():
+					award_chain_link(body)
+
 				velocity.y = fmod(velocity.y, STOMP_SPEED_CAP) - STOMP_SPEED
-		elif not has_cooldown:
-			take_hit()
+		else:
+			var kicked = false
+
+			if body.has_method("kick"):
+				kicked = body.kick(signf(body.global_position.x - global_position.x))
+
+			if not kicked and not has_cooldown:
+				take_hit()
 
 func _on_hitbox_body_entered(body: Node):
 	if not body.is_in_group("powerups") or body == collected_item_ref or body.is_queued_for_deletion():
@@ -391,24 +398,13 @@ func _on_hitbox_body_entered(body: Node):
 		body.queue_free()
 
 func award_chain_link(entity: Node2D):
-	var popup_position = entity.global_position + SCORE_POPUP_OFFSET
-
-	if ScoreTable.chain_gives_one_up(chain_link):
-		LivesManager.add_life()
-		ScoreManager.show_floating_text(ScoreTable.ONE_UP_TEXT, popup_position)
-	else:
-		ScoreManager.award_points(_chain_points(entity), popup_position)
-
-	chain_link += 1
+	chain.award(
+		_points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "points"),
+		entity.global_position + SCORE_POPUP_OFFSET
+	)
 
 func reset_chain():
-	chain_link = 0
-
-func _chain_points(entity: Node2D) -> int:
-	if chain_link == 0:
-		return _points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "points")
-
-	return ScoreTable.chain_value(chain_link)
+	chain.reset()
 
 func _points_of(entity: Node, award: ScoreTable.Award, property: String) -> int:
 	if property in entity:
