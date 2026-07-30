@@ -45,3 +45,8 @@ func _on_score_changed(score: int):
 	score_label.text = "%s\n%06d" % [_player_name, score]
 func _on_coins_changed(coins: int):
 	coins_label.text = "%02d" % coins
+func pause_timer():
+	timer.paused = true
+
+func resume_timer():
+	timer.paused = false

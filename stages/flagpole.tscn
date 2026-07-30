@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bq1v7xmodmto0"]
+
+[ext_resource type="Script" uid="uid://dskt34xfo4hi3" path="res://stages/flagpole.gd" id="1_13tno"]
+[ext_resource type="Texture2D" uid="uid://dk0u2yym3ruhw" path="res://assets/sprites/flagpole_flag.png" id="2_1dc2p"]
+[ext_resource type="Texture2D" uid="uid://opoi4xnrffum" path="res://assets/sprites/flagpole_ball.png" id="3_ugh13"]
+[ext_resource type="Texture2D" uid="uid://cl3gyioxvd16v" path="res://assets/sprites/flagpole_pole.png" id="4_a5tkq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxbct"]
+size = Vector2(8, 616.00006)
+
+[node name="Flagpole" type="Area2D" unique_id=1565535188]
+collision_layer = 2
+collision_mask = 6
+script = ExtResource("1_13tno")
+
+[node name="punta" type="Sprite2D" parent="." unique_id=96457038]
+position = Vector2(4, -175)
+scale = Vector2(0.21450618, 0.20937534)
+texture = ExtResource("3_ugh13")
+
+[node name="flag" type="Sprite2D" parent="." unique_id=1721682775]
+position = Vector2(-20.000002, -146)
+scale = Vector2(0.158, 0.17355372)
+texture = ExtResource("2_1dc2p")
+
+[node name="asta" type="Sprite2D" parent="." unique_id=299450354]
+position = Vector2(4, 0.99999994)
+scale = Vector2(0.72727275, 0.48414984)
+texture = ExtResource("4_a5tkq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=531631371]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(4, 118)
+scale = Vector2(1, 0.99999994)
+shape = SubResource("RectangleShape2D_vxbct")
+debug_color = Color(0.8721827, 0.24169081, 0.6341394, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
