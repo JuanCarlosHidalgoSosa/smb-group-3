@@ -41,6 +41,18 @@ const FIREBALL_SCENE = preload("res://characters/fireball.tscn")
 const MAX_FIREBALLS = 2
 const FIREBALL_OFFSET = Vector2(8.0, -14.0)
 
+const INVINCIBILITY_TIME_SEC = 11.0
+const INVINCIBILITY_WARNING_TIME_SEC = 1.5
+const INVINCIBILITY_COLOR_INTERVAL_SEC = 0.05
+const INVINCIBILITY_WARNING_COLOR_INTERVAL_SEC = 0.2
+
+const INVINCIBILITY_COLORS = [
+	Color.WHITE,
+	Color(1.0, 0.6, 0.4),
+	Color(0.6, 1.0, 0.6),
+	Color(0.6, 0.8, 1.0),
+]
+
 # Nodes
 @onready var camera = get_node_or_null("Camera")
 
@@ -86,6 +98,9 @@ var state = State.SMALL:
 var has_cooldown = false
 
 var chain: ScoreChain = ScoreChain.new()
+var star_chain: ScoreChain = ScoreChain.new()
+
+var invincibility_time_left = 0.0
 
 var collected_item_ref: Node = null
 
@@ -117,6 +132,7 @@ func _physics_process(delta):
 	process_jump(delta)
 	process_walk(delta)
 	process_fire()
+	process_invincibility(delta)
 	process_bounds_collision()
 	
 	_old_velocity = velocity
@@ -250,6 +266,27 @@ func shoot_fireball():
 	get_parent().add_child(fireball)
 	fireball.global_position = (global_position + offset).round()
 
+func process_invincibility(delta: float):
+	if invincibility_time_left <= 0.0:
+		return
+
+	invincibility_time_left = max(0.0, invincibility_time_left - delta)
+
+func start_invincibility(duration: float = INVINCIBILITY_TIME_SEC):
+	invincibility_time_left = duration
+	star_chain.reset()
+
+func is_invincible() -> bool:
+	return invincibility_time_left > 0.0
+
+func invincibility_color() -> Color:
+	var interval = INVINCIBILITY_COLOR_INTERVAL_SEC
+
+	if invincibility_time_left <= INVINCIBILITY_WARNING_TIME_SEC:
+		interval = INVINCIBILITY_WARNING_COLOR_INTERVAL_SEC
+
+	return INVINCIBILITY_COLORS[int(invincibility_time_left / interval) % INVINCIBILITY_COLORS.size()]
+
 func count_fireballs() -> int:
 	var count = 0
 
@@ -312,10 +349,12 @@ func process_animation():
 	else:
 		sprite.play("idle")
 
-	if has_cooldown:
+	if is_invincible():
+		modulate = invincibility_color()
+	elif has_cooldown:
 		modulate.a = 0.0 if modulate.a else 1.0
 	else:
-		modulate.a = 1.0
+		modulate = Color.WHITE
 
 func _update_tree():
 	var is_small = state == State.SMALL
@@ -403,6 +442,10 @@ func _on_hitbox_area_entered(area: Area2D):
 		if not body.is_alive:
 			return
 
+		if is_invincible():
+			hit_with_star(body)
+			return
+
 		var is_stompable = body.has_method("stomp")
 		var stomp = is_stompable and velocity.y > 0 and hitbox.global_position.y < area.global_position.y
 
@@ -445,8 +488,20 @@ func _on_hitbox_body_entered(body: Node):
 		collected_item_ref = null
 		body.queue_free()
 
+func hit_with_star(enemy: Node2D):
+	if not enemy.has_method("die_from_hit"):
+		return
+
+	var direction = Vector2.LEFT if enemy.global_position.x < global_position.x else Vector2.RIGHT
+
+	enemy.die_from_hit(direction, false)
+	_award_chain(star_chain, enemy)
+
 func award_chain_link(entity: Node2D):
-	chain.award(
+	_award_chain(chain, entity)
+
+func _award_chain(target: ScoreChain, entity: Node2D):
+	target.award(
 		_points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "points"),
 		entity.global_position + SCORE_POPUP_OFFSET
 	)

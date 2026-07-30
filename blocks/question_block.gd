@@ -17,6 +17,7 @@ const coin_particle_scene = preload("res://particles/coin_particle.tscn")
 const red_mushroom_scene = preload("res://items/red_mushroom.tscn")
 const green_mushroom_scene = preload("res://items/green_mushroom.tscn")
 const fire_flower_scene = preload("res://items/fire_flower.tscn")
+const star_scene = preload("res://items/star.tscn")
 
 @export var item: Item = Item.NONE
 @export var multi_coin_window_sec: float = 5.0
@@ -85,6 +86,10 @@ func on_hit(body: Node):
 
 		Item.GREEN_MUSHROOM:
 			_spawn(green_mushroom_scene.instantiate())
+			_become_empty()
+
+		Item.STAR:
+			_spawn(star_scene.instantiate())
 			_become_empty()
 
 
