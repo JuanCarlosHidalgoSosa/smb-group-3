@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv4kkt4shhwxo"
-path="res://.godot/imported/Captura de pantalla 2026-07-29 225052.png-10afde928e5a672512e1d5a70be865ad.ctex"
+uid="uid://opoi4xnrffum"
+path="res://.godot/imported/flagpole_ball.png-0fc67fe9f0e89e5490afd5844a4939e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Captura de pantalla 2026-07-29 225052.png"
-dest_files=["res://.godot/imported/Captura de pantalla 2026-07-29 225052.png-10afde928e5a672512e1d5a70be865ad.ctex"]
+source_file="res://assets/sprites/flagpole_ball.png"
+dest_files=["res://.godot/imported/flagpole_ball.png-0fc67fe9f0e89e5490afd5844a4939e1.ctex"]
 
 [params]
 
