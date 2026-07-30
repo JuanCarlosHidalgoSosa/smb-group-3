@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://7j5q4vy0tr03" path="res://misc/zone.tscn" id="5_2itge"]
 [ext_resource type="PackedScene" uid="uid://c30a23epjbrps" path="res://blocks/brick_block.tscn" id="7_0l3fy"]
 [ext_resource type="PackedScene" uid="uid://cbbuditkrn656" path="res://characters/player.tscn" id="8_tkm5h"]
+[ext_resource type="PackedScene" uid="uid://bk00pa1tr00pa" path="res://enemies/koopa.tscn" id="9_koopa"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pb777"]
 
@@ -232,3 +233,6 @@ drag_left_margin = 0.0
 drag_top_margin = 0.6
 drag_right_margin = 0.0
 drag_bottom_margin = 0.6
+
+[node name="Koopa" parent="." instance=ExtResource("9_koopa")]
+position = Vector2(1300, 200)

@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://bk00pa1tr00pa"]
+
+[ext_resource type="Script" path="res://enemies/koopa.gd" id="1_koopa"]
+[ext_resource type="SpriteFrames" path="res://enemies/koopa_frames.tres" id="2_koopa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbody"]
+size = Vector2(14, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kshell"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khit"]
+size = Vector2(12, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kshellhit"]
+size = Vector2(14, 12)
+
+[node name="Koopa" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+script = ExtResource("1_koopa")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+sprite_frames = ExtResource("2_koopa")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, 8)
+collision_layer = 2
+collision_mask = 2
+
+[node name="Walk" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_khit")
+
+[node name="Shell" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_kshellhit")
+disabled = true
+
+[node name="WalkCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_kbody")
+
+[node name="ShellCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_kshell")
+disabled = true
+
+[node name="VisibilityEnabler" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(0, -4)
+rect = Rect2(-8, -12, 16, 24)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_exited" from="VisibilityEnabler" to="." method="_on_visibility_enabler_screen_exited"]
