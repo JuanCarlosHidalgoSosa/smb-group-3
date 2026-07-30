@@ -416,3 +416,28 @@ func _on_animation_player_animation_finished(_anim_name):
 func die():
 	reset_chain()
 	get_tree().reload_current_scene()
+func play_flagpole_sequence(pole_position: Vector2, pole_bottom_y: float, _points: int):
+	set_physics_process(false)
+	set_process(false)
+	Physics.disable()
+	
+	global_position.x = pole_position.x
+	sprite.play("grab")
+	
+	var tween = create_tween()
+	tween.tween_property(self, "global_position:y", pole_bottom_y, 1.5)
+	await tween.finished
+	
+	is_facing_left = false
+	sprite.flip_h = false
+	sprite.play("walk")
+	
+	var stage = get_tree().current_scene.get_node_or_null("Stage")
+	var castle = stage.get_node_or_null("CastleEntrance") if stage else null
+	var target_x = castle.global_position.x if castle else global_position.x + 200.0
+	
+	var walk_tween = create_tween()
+	walk_tween.tween_property(self, "global_position:x", target_x, abs(target_x - global_position.x) / 60.0)
+	await walk_tween.finished
+	
+	visible = false

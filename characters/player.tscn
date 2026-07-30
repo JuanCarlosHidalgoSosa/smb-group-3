@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://culctsxgkirf" path="res://assets/sprites/mario_grow.png" id="4_f3wyq"]
 [ext_resource type="Texture2D" uid="uid://dk2kaoiuhbxjt" path="res://assets/sprites/mario_shrink.png" id="5_oyv1a"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_evndh"]
+atlas = ExtResource("2_gatvr")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1q25"]
+atlas = ExtResource("2_gatvr")
+region = Rect2(144, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_r34y0"]
 atlas = ExtResource("2_gatvr")
 region = Rect2(0, 0, 16, 16)
@@ -32,6 +40,17 @@ region = Rect2(54, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hmvxf"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evndh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1q25")
+}],
+"loop": 1,
+"name": &"grab",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r34y0")
@@ -75,6 +94,14 @@ animations = [{
 atlas = ExtResource("3_wo87p")
 region = Rect2(102, 0, 16, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_j31ep"]
+atlas = ExtResource("3_wo87p")
+region = Rect2(119, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t23p"]
+atlas = ExtResource("3_wo87p")
+region = Rect2(136, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_xudw5"]
 atlas = ExtResource("3_wo87p")
 region = Rect2(0, 0, 16, 32)
@@ -107,6 +134,17 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j31ep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6t23p")
+}],
+"loop": 1,
+"name": &"grab",
 "speed": 5.0
 }, {
 "frames": [{
@@ -248,7 +286,6 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=411687956]
-collision_layer = 0
 floor_stop_on_slope = false
 floor_max_angle = 0.174533
 script = ExtResource("1_a1ce6")
@@ -259,7 +296,7 @@ texture_filter = 1
 texture_repeat = 1
 position = Vector2(0, 1.1)
 sprite_frames = SubResource("SpriteFrames_hmvxf")
-animation = &"idle"
+animation = &"grab"
 
 [node name="BigSprite" type="AnimatedSprite2D" parent="." unique_id=209701595]
 visible = false
@@ -268,7 +305,7 @@ texture_filter = 1
 texture_repeat = 1
 position = Vector2(0, -6.9)
 sprite_frames = SubResource("SpriteFrames_g84c2")
-animation = &"idle"
+animation = &"grab"
 
 [node name="TransitionSprite" type="AnimatedSprite2D" parent="." unique_id=1278121526]
 visible = false
