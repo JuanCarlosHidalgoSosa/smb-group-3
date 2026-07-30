@@ -16,6 +16,7 @@ const ON_HIT_VELOCITY = -140
 const coin_particle_scene = preload("res://particles/coin_particle.tscn")
 const red_mushroom_scene = preload("res://items/red_mushroom.tscn")
 const green_mushroom_scene = preload("res://items/green_mushroom.tscn")
+const fire_flower_scene = preload("res://items/fire_flower.tscn")
 
 @export var item: Item = Item.NONE
 @export var multi_coin_window_sec: float = 5.0
@@ -76,7 +77,7 @@ func on_hit(body: Node):
 
 		Item.RED_MUSHROOM_OR_FIRE_FLOWER:
 			if body is Player and body.state != Player.State.SMALL:
-				_spawn(red_mushroom_scene.instantiate()) # TODO: fire flower
+				_spawn(fire_flower_scene.instantiate())
 			else:
 				_spawn(red_mushroom_scene.instantiate())
 

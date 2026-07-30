@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/fire_flower.png" id="1_flwr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flwr0"]
+atlas = ExtResource("1_flwr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flwr1"]
+atlas = ExtResource("1_flwr")
+region = Rect2(17, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flwr2"]
+atlas = ExtResource("1_flwr")
+region = Rect2(34, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flwr3"]
+atlas = ExtResource("1_flwr")
+region = Rect2(51, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flwr0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flwr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flwr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flwr3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
