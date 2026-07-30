@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://characters/fireball.gd" id="1_fb"]
+[ext_resource type="SpriteFrames" path="res://characters/fireball_frames.tres" id="2_fb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fb_body"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fb_hit"]
+size = Vector2(8, 8)
+
+[node name="Fireball" type="CharacterBody2D" groups=["fireballs"]]
+collision_layer = 0
+floor_stop_on_slope = false
+floor_snap_length = 0.0
+script = ExtResource("1_fb")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+sprite_frames = ExtResource("2_fb")
+animation = &"spin"
+autoplay = "spin"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_fb_body")
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_fb_hit")
+
+[node name="VisibilityNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-8, -8, 16, 16)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_visibility_enabler_screen_exited"]
