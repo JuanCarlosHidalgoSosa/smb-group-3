@@ -6,6 +6,8 @@ extends CharacterBody2D
 
 const SPEED: float = 60.0
 
+@export var points: int = ScoreTable.value_of(ScoreTable.Award.POWERUP)
+
 var spawner: Node = null
 var _is_facing_left: bool = false
 

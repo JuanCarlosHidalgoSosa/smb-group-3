@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqsc0r3f1oat1"]
+
+[ext_resource type="Script" path="res://ui/floating_score.gd" id="1_flsc0"]
+[ext_resource type="FontFile" uid="uid://bkukv2ir5407k" path="res://assets/fonts/smb.ttf" id="2_qyf17"]
+
+[node name="FloatingScore" type="Node2D"]
+z_index = 10
+script = ExtResource("1_flsc0")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 24.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("2_qyf17")
+theme_override_font_sizes/font_size = 8
+text = "100"
