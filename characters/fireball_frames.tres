@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3]
+
+[ext_resource type="Texture2D" uid="uid://tj0pd1dctwug" path="res://assets/sprites/fireball.png" id="1_fb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fireball_explosion.png" id="2_fbx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fb0"]
+atlas = ExtResource("1_fb")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbx0"]
+atlas = ExtResource("2_fbx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbx1"]
+atlas = ExtResource("2_fbx")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbx2"]
+atlas = ExtResource("2_fbx")
+region = Rect2(32, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbx2")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fb0")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 5.0
+}]

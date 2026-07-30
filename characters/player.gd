@@ -37,6 +37,10 @@ const DEATH_HEIGHT = 1000.0
 
 const SCORE_POPUP_OFFSET = Vector2.UP * 8.0
 
+const FIREBALL_SCENE = preload("res://characters/fireball.tscn")
+const MAX_FIREBALLS = 2
+const FIREBALL_OFFSET = Vector2(8.0, -14.0)
+
 # Nodes
 @onready var camera = get_node_or_null("Camera")
 
@@ -112,6 +116,7 @@ func _process(_delta):
 func _physics_process(delta):
 	process_jump(delta)
 	process_walk(delta)
+	process_fire()
 	process_bounds_collision()
 	
 	_old_velocity = velocity
@@ -220,6 +225,39 @@ func process_walk(delta: float):
 		is_skiding = false
 	
 	speed_scale = abs(velocity.x) / MAX_SPEED
+
+func process_fire():
+	if state != State.FIRE or is_crouching:
+		return
+
+	if not Input.is_action_just_pressed("fire"):
+		return
+
+	if count_fireballs() >= MAX_FIREBALLS:
+		return
+
+	shoot_fireball()
+
+func shoot_fireball():
+	var offset = FIREBALL_OFFSET
+
+	if is_facing_left:
+		offset.x = -offset.x
+
+	var fireball = FIREBALL_SCENE.instantiate()
+	fireball.launch(is_facing_left)
+
+	get_parent().add_child(fireball)
+	fireball.global_position = (global_position + offset).round()
+
+func count_fireballs() -> int:
+	var count = 0
+
+	for fireball in get_tree().get_nodes_in_group(Fireball.GROUP):
+		if not fireball.is_queued_for_deletion():
+			count += 1
+
+	return count
 
 func process_bounds_collision():
 	if not camera:
