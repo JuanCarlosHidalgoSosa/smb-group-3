@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://db111b1aster0"]
+
+[ext_resource type="Script" path="res://enemies/bill_blaster.gd" id="1_bl"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bill_blaster.png" id="2_bl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bl"]
+size = Vector2(16, 32)
+
+[node name="BillBlaster" type="StaticBody2D"]
+script = ExtResource("1_bl")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_bl")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_bl")

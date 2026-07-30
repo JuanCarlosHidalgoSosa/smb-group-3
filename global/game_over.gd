@@ -11,4 +11,6 @@ func _unhandled_input(event):
 		_go_to_title()
 
 func _go_to_title():
+	LivesManager.reset_lives()
+	ScoreManager.reset()
 	get_tree().change_scene_to_file("res://main.tscn")

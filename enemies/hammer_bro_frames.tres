@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/hammer_bro.png" id="1_hb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb0"]
+atlas = ExtResource("1_hb")
+region = Rect2(0, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb1"]
+atlas = ExtResource("1_hb")
+region = Rect2(25, 0, 24, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hb0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hb1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]

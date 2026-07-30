@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://cbbuditkrn656" path="res://characters/player.tscn" id="8_tkm5h"]
 [ext_resource type="PackedScene" uid="uid://bk00pa1tr00pa" path="res://enemies/koopa.tscn" id="9_koopa"]
 [ext_resource type="PackedScene" uid="uid://cp1ranhap1ant" path="res://enemies/piranha_plant.tscn" id="10_piranha"]
+[ext_resource type="PackedScene" uid="uid://bbuzzybeet1e0" path="res://enemies/buzzy_beetle.tscn" id="12_buzzy"]
+[ext_resource type="PackedScene" uid="uid://db111b1aster0" path="res://enemies/bill_blaster.tscn" id="13_blaster"]
+[ext_resource type="PackedScene" uid="uid://dhammerbr00001" path="res://enemies/hammer_bro.tscn" id="14_hbro"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pb777"]
 
@@ -252,3 +255,21 @@ position = Vector2(2624, 176)
 
 [node name="PiranhaPlant6" parent="." instance=ExtResource("10_piranha")]
 position = Vector2(2880, 176)
+
+[node name="BuzzyBeetle" parent="." instance=ExtResource("12_buzzy")]
+position = Vector2(160, 200)
+
+[node name="BuzzyBeetle2" parent="." instance=ExtResource("12_buzzy")]
+position = Vector2(1210, 200)
+
+[node name="HammerBro" parent="." instance=ExtResource("14_hbro")]
+position = Vector2(590, 200)
+
+[node name="HammerBro2" parent="." instance=ExtResource("14_hbro")]
+position = Vector2(1360, 200)
+
+[node name="BillBlaster" parent="." instance=ExtResource("13_blaster")]
+position = Vector2(320, 200)
+
+[node name="BillBlaster2" parent="." instance=ExtResource("13_blaster")]
+position = Vector2(2740, 200)

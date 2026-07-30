@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbuzzybeet1e0"]
+
+[ext_resource type="Script" path="res://enemies/buzzy_beetle.gd" id="1_bz"]
+[ext_resource type="SpriteFrames" path="res://enemies/buzzy_beetle_frames_overworld.tres" id="2_bz"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bzbody"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bzhit"]
+size = Vector2(12, 10)
+
+[node name="BuzzyBeetle" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+script = ExtResource("1_bz")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+sprite_frames = ExtResource("2_bz")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, 8)
+collision_layer = 2
+collision_mask = 2
+
+[node name="Walk" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_bzhit")
+
+[node name="Shell" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_bzhit")
+disabled = true
+
+[node name="WalkCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_bzbody")
+
+[node name="ShellCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_bzbody")
+disabled = true
+
+[node name="VisibilityEnabler" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(0, 1)
+rect = Rect2(-8, -8, 16, 16)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_exited" from="VisibilityEnabler" to="." method="_on_visibility_enabler_screen_exited"]
