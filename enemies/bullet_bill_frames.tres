@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://citq1q87ctq2f"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/bullet_bill.png" id="1_bb"]
+[ext_resource type="Texture2D" uid="uid://bea8po1yban2e" path="res://assets/sprites/bullet_bill.png" id="1_bb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bb0"]
 atlas = ExtResource("1_bb")
@@ -12,7 +12,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bb0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
