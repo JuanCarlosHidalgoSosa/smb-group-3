@@ -355,14 +355,14 @@ func _on_hitbox_area_entered(area: Area2D):
 		if not body.is_alive:
 			return
 
-		var stomp = velocity.y > 0 and hitbox.global_position.y < area.global_position.y
+		var is_stompable = body.has_method("stomp")
+		var stomp = is_stompable and velocity.y > 0 and hitbox.global_position.y < area.global_position.y
 
 		if stomp:
-			if body.has_method("stomp"):
-				if body.stomp():
-					award_chain_link(body)
+			if body.stomp():
+				award_chain_link(body)
 
-				velocity.y = fmod(velocity.y, STOMP_SPEED_CAP) - STOMP_SPEED
+			velocity.y = fmod(velocity.y, STOMP_SPEED_CAP) - STOMP_SPEED
 		else:
 			var kicked = false
 
