@@ -15,6 +15,7 @@ const ON_HIT_VELOCITY = -140
 
 const coin_particle_scene = preload("res://particles/coin_particle.tscn")
 const red_mushroom_scene = preload("res://items/red_mushroom.tscn")
+const green_mushroom_scene = preload("res://items/green_mushroom.tscn")
 
 @export var item: Item = Item.NONE
 @export var multi_coin_window_sec: float = 5.0
@@ -79,6 +80,10 @@ func on_hit(body: Node):
 			else:
 				_spawn(red_mushroom_scene.instantiate())
 
+			_become_empty()
+
+		Item.GREEN_MUSHROOM:
+			_spawn(green_mushroom_scene.instantiate())
 			_become_empty()
 
 

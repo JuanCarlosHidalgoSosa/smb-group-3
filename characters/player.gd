@@ -366,13 +366,19 @@ func _on_hitbox_area_entered(area: Area2D):
 			take_hit()
 
 func _on_hitbox_body_entered(body: Node):
-	if not body.is_in_group("powerups") or body == collected_item_ref:
+	if not body.is_in_group("powerups") or body == collected_item_ref or body.is_queued_for_deletion():
 		return
 
-	ScoreManager.award_points(
-		_points_of(body, ScoreTable.Award.POWERUP, "points"),
-		body.global_position + SCORE_POPUP_OFFSET
-	)
+	var popup_position = body.global_position + SCORE_POPUP_OFFSET
+	var points = _points_of(body, ScoreTable.Award.POWERUP, "points")
+	var extra_lives = body.extra_lives if "extra_lives" in body else 0
+
+	if points > 0:
+		ScoreManager.award_points(points, popup_position)
+
+	if extra_lives > 0:
+		LivesManager.add_life(extra_lives)
+		ScoreManager.show_floating_text(ScoreTable.ONE_UP_TEXT, popup_position)
 
 	var previous_state = state
 	collected_item_ref = body
