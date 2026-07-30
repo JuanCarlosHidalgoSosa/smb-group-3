@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://nj576dfwf7gq"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/hammer_bro.png" id="1_hb"]
+[ext_resource type="Texture2D" uid="uid://cet4tgoxlyj7w" path="res://assets/sprites/hammer_bro.png" id="1_hb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hb0"]
 atlas = ExtResource("1_hb")
@@ -19,7 +19,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hb1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 4.0
 }]
