@@ -79,6 +79,8 @@ var state = State.SMALL:
 
 var has_cooldown = false
 
+var chain_link: int = 0
+
 var collected_item_ref: Node = null
 
 # Nodes
@@ -113,7 +115,10 @@ func _physics_process(delta):
 
 	move_and_slide()
 	handle_last_collision()
-	
+
+	if is_on_floor():
+		reset_chain()
+
 	if global_position.y > DEATH_HEIGHT:
 		die()
 	
@@ -298,6 +303,7 @@ func take_hit():
 		_cooldown()
 
 func die_by_hit():
+	reset_chain()
 	set_physics_process(false)
 	set_process(false)
 	Physics.disable()
@@ -354,10 +360,7 @@ func _on_hitbox_area_entered(area: Area2D):
 		if stomp:
 			if body.has_method("stomp"):
 				body.stomp()
-				ScoreManager.award_points(
-					_points_of(body, ScoreTable.Award.GOOMBA_STOMP, "stomp_points"),
-					body.global_position + SCORE_POPUP_OFFSET
-				)
+				award_chain_link(body)
 				velocity.y = fmod(velocity.y, STOMP_SPEED_CAP) - STOMP_SPEED
 		elif not has_cooldown:
 			take_hit()
@@ -381,6 +384,26 @@ func _on_hitbox_body_entered(body: Node):
 		collected_item_ref = null
 		body.queue_free()
 
+func award_chain_link(entity: Node2D):
+	var popup_position = entity.global_position + SCORE_POPUP_OFFSET
+
+	if ScoreTable.chain_gives_one_up(chain_link):
+		LivesManager.add_life()
+		ScoreManager.show_floating_text(ScoreTable.ONE_UP_TEXT, popup_position)
+	else:
+		ScoreManager.award_points(_chain_points(entity), popup_position)
+
+	chain_link += 1
+
+func reset_chain():
+	chain_link = 0
+
+func _chain_points(entity: Node2D) -> int:
+	if chain_link == 0:
+		return _points_of(entity, ScoreTable.Award.GOOMBA_STOMP, "stomp_points")
+
+	return ScoreTable.chain_value(chain_link)
+
 func _points_of(entity: Node, award: ScoreTable.Award, property: String) -> int:
 	if property in entity:
 		return entity.get(property)
@@ -391,4 +414,5 @@ func _on_animation_player_animation_finished(_anim_name):
 	Physics.enable()
 
 func die():
+	reset_chain()
 	get_tree().reload_current_scene()
