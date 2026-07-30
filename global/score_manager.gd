@@ -29,6 +29,12 @@ func show_floating_text(text: String, world_position: Vector2) -> void:
 	stage.add_child(floating_score)
 	floating_score.global_position = world_position.round()
 
+func reset() -> void:
+	score = 0
+	coins = 0
+	score_changed.emit(score)
+	coins_changed.emit(coins)
+
 func add_coin() -> void:
 	coins += 1
 

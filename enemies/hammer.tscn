@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://chammer00001"]
+
+[ext_resource type="Script" path="res://enemies/hammer.gd" id="1_hm"]
+[ext_resource type="Texture2D" path="res://assets/sprites/hammer.png" id="2_hm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hm"]
+size = Vector2(8, 12)
+
+[node name="Hammer" type="Node2D" groups=["enemies"]]
+z_index = 1
+script = ExtResource("1_hm")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_hm")
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hm")
+
+[node name="VisibilityEnabler" type="VisibleOnScreenEnabler2D" parent="."]
+rect = Rect2(-16, -16, 32, 32)
+
+[connection signal="screen_exited" from="VisibilityEnabler" to="." method="_on_visibility_enabler_screen_exited"]
