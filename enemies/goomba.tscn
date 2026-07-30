@@ -7,7 +7,7 @@
 size = Vector2(10, 6)
 
 [node name="Goomba" type="CharacterBody2D" groups=["enemies"]]
-collision_layer = 0
+collision_layer = 2
 script = ExtResource("1_kindd")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
@@ -37,3 +37,4 @@ position = Vector2(0, 1)
 scale = Vector2(0.8, 0.8)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_exited" from="VisibilityEnabler" to="." method="_on_visibility_enabler_screen_exited"]
